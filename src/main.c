@@ -1,14 +1,68 @@
 #include <ctype.h>
 #include "arg.h"
 #include "uncomp.h"
+#include "bmp.h"
 
 void hex_dump(void *data, int size);
+
+int is_img(unsigned char *buf, unsigned int size)
+{
+	unsigned char width;
+	unsigned char height;
+
+	width = *(unsigned char*)buf++;
+	height = *(unsigned char*)buf;
+	if (width * height == size - 2)
+		return 1;
+	return 0;
+}
+
+void mirrorud(unsigned char *pixelData, unsigned int width, unsigned int height)
+{
+	unsigned int x,y;
+
+    	for (x = 0; x < width; x++)
+	{
+		for (y = 0; y < height / 2; y++)
+		{
+			int a = x + (y * width);
+                	char temp = pixelData[a];
+                	pixelData[a] = pixelData[x + (height - 1 - y) * width];
+                	pixelData[x + (height - 1 - y) * width]=temp;
+            	}
+    	}
+}
+
+void readtobmp(unsigned char *buf, char *name)
+{
+  	BMP b;
+  	char output_name[500];
+
+	b.width = *(unsigned char*)buf++;
+	b.height = *(unsigned char*)buf++;
+	b.data = buf;
+	mirrorud(b.data, b.width, b.height);
+	hex_dump(b.data, b.width * b.height + 2);
+	/*rmdir("./extract");
+	mkdir("./extract", 0755);*/
+	strcpy(output_name, "./extract/");
+  	strcat(output_name, name);
+  	strcat(output_name, ".bmp");
+  	if (!bmp_save(&b, output_name))
+	{
+		fprintf(stderr, "[-] bmp_save(..., \"%s\")", output_name);
+	}
+}
 
 void extract(struct s_conf *conf)
 {
 	unsigned int uncomp_size = 0;
 	unsigned char *buf = NULL;
 	unsigned char *out_buf = NULL;
+	unsigned short num_entry = 0;
+	unsigned int i;
+	unsigned char width, height;
+	char name[4096];
 
 	buf = conf->map;
 	uncomp_size = *(unsigned int*)buf;
@@ -25,6 +79,27 @@ void extract(struct s_conf *conf)
 		return;
 	}
 	hex_dump(out_buf, uncomp_size);
+	if (is_img(out_buf, uncomp_size))
+	{
+		printf("[+] Image !\n");
+		readtobmp(out_buf, "LOL");
+	}
+	else
+	{
+		buf = out_buf;
+		num_entry = *(unsigned short*)buf;
+		buf += 2;
+		printf("[-] Not an image ! Num_entry = %X\n", num_entry);
+		for (i = 0; i < num_entry; i++)
+		{
+			memset(name, 0, 4096);
+			sprintf(name, "LOL_%d", i);
+			width = *buf;
+			height = *(buf + 1);
+			readtobmp(buf, name);
+			buf = buf + (width * height) + 2;
+		}
+	}
 	free(out_buf);
 }
 
