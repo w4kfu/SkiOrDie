@@ -78,7 +78,7 @@ void extract(struct s_conf *conf)
 		free(out_buf);
 		exit(EXIT_FAILURE);
 	}
-	//hex_dump(out_buf, uncomp_size);
+	hex_dump(out_buf, uncomp_size);
 	if (is_img(out_buf, uncomp_size))
 	{
 		printf("[+] Image !\n");

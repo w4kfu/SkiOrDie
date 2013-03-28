@@ -22,7 +22,7 @@ def css():
 		"table th, table td { vertical-align: top; }" +
 		"table td {border: 1px solid black;}" +
 		"table th {border: 0;padding-top: 1em;text-align: left;}" +
-		"table > thead > tr > th.status, table > tbody > tr > td.status {font-weight: bold;text-align: center;}"+
+		"table > tr > th.status, table > tbody > tr > td.status {font-weight: bold;text-align: center;}"+
 		"table > tbody > tr > td.ok {background-color: #6f6;}" +
 		"table > tbody > tr > td.bad {background-color: #f66;}" +
         	"</style>")
@@ -33,17 +33,16 @@ def GenStatus(extracted):
 	fout.write(htmlhead())
 	fout.write("<body>\n<table>\n")
 	for entry in extracted:
-		fout.write("<thead><tr>\n")
+		fout.write("<tr>\n")
       		fout.write("<th>%s</th><th></th><th class=\"status\">State</th>\n" % entry[0].rsplit('/', 1)[1])
-    		fout.write("</tr></thead><tbody>\n")
+    		fout.write("</tr>\n")
 		if len(entry[1]) > 0:
 			for i in entry[1]:
 				fout.write("<tr>\n")
-    				fout.write("<td><a name=\"%s\"></a>%s</td><td><small><IMG BORDER=\"0\" SRC=\"%s\"></small></td><td class=\"status ok\"></td>\n" % (i.rsplit('/', 1)[1], i.rsplit('/', 1)[1], i))
+    				fout.write("<td><a name=\"%s\"></a>%s</td><td align=\"center\"><img src=\"%s\" alt=\".\"/><small><br/>Img info ...</small></td><td class=\"status ok\"></td>\n" % (i.rsplit('/', 1)[1], i.rsplit('/', 1)[1], i))
 				fout.write("</tr>\n")
 		else:
-			fout.write("<tr><td><a name=\"???\"></a>???</td><td><small></small></td><td class=\"status bad\"></td>\n</tr>\n")
-		fout.write("</tbody>\n")
+			fout.write("<tr><td><a name=\".\"></a>???</td><td><small></small></td><td class=\"status bad\"></td>\n</tr>\n")
 	fout.write("</table>\n</body>\n</html>")
 	fout.close()
 
