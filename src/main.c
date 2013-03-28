@@ -42,7 +42,7 @@ void readtobmp(unsigned char *buf, char *name)
 	b.height = *(unsigned char*)buf++;
 	b.data = buf;
 	mirrorud(b.data, b.width, b.height);
-	hex_dump(b.data, b.width * b.height + 2);
+	//hex_dump(b.data, b.width * b.height + 2);
 	/*rmdir("./extract");
 	mkdir("./extract", 0755);*/
 	strcpy(output_name, "./extract/");
@@ -71,14 +71,14 @@ void extract(struct s_conf *conf)
 	if (!(out_buf = malloc(sizeof (char) * uncomp_size)))
 	{
 		perror("malloc()");
-		return;
+		exit(EXIT_FAILURE);
 	}
 	if (!uncomp(buf, conf->map + conf->fin_size, out_buf, out_buf + uncomp_size))
 	{
 		free(out_buf);
-		return;
+		exit(EXIT_FAILURE);
 	}
-	hex_dump(out_buf, uncomp_size);
+	//hex_dump(out_buf, uncomp_size);
 	if (is_img(out_buf, uncomp_size))
 	{
 		printf("[+] Image !\n");
