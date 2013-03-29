@@ -46,7 +46,7 @@ Game downloaded from [AbandonWareFrance][1] is already patched to avoid copy pro
 
 Files uses the extension ".lzw", but the compression algorithm is LZSS !
 
-All images must be flip it horizontaly.
+All images must be fliped horizontaly.
 
 ## SPLASH.LZW
 
