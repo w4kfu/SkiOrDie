@@ -110,13 +110,13 @@ All images must be flip it horizontaly.
 
 
 [1]:http://www.abandonware-france.org/ltf_abandon/ltf_jeu.php?id=624&fic=liens
-[2]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_0.bmp
-[3]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_1.bmp
-[4]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_2.bmp
-[5]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_3.bmp
-[6]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_4.bmp
-[7]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_5.bmp
-[8]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_6.bmp
-[9]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_7.bmp
-[10]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_8.bmp
-[11]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_9.bmp
+[2]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_0.bmp "code1"
+[3]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_1.bmp "code2"
+[4]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_2.bmp "code3"
+[5]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_3.bmp "code4"
+[6]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_4.bmp "code5"
+[7]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_5.bmp "code6"
+[8]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_6.bmp "code7"
+[9]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_7.bmp "code8"
+[10]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_8.bmp "code9"
+[11]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_9.bmp "code10"
