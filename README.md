@@ -31,18 +31,16 @@ Game downloaded from [AbandonWareFrance][1] is already patched to avoid copy pro
 
 ## Code for copy protection
 
-*![CPSHOP.LZW_0][2] : "AP"
-*![CPSHOP.LZW_1][3] : "BB"
-*![CPSHOP.LZW_2][4] : "GP"
-*![CPSHOP.LZW_3][5] : "ST"
-*![CPSHOP.LZW_4][6] : "PZ"
-*![CPSHOP.LZW_5][7] : "AS"
-*![CPSHOP.LZW_6][8] : "GM"
-*![CPSHOP.LZW_7][9] : "KB"
-*![CPSHOP.LZW_8][10] : "BA"
-*![CPSHOP.LZW_9][11] : "MT"
-
-The files downloaded from
+* ![CPSHOP.LZW_0][2] : "AP"
+* ![CPSHOP.LZW_1][3] : "BB"
+* ![CPSHOP.LZW_2][4] : "GP"
+* ![CPSHOP.LZW_3][5] : "ST"
+* ![CPSHOP.LZW_4][6] : "PZ"
+* ![CPSHOP.LZW_5][7] : "AS"
+* ![CPSHOP.LZW_6][8] : "GM"
+* ![CPSHOP.LZW_7][9] : "KB"
+* ![CPSHOP.LZW_8][10] : "BA"
+* ![CPSHOP.LZW_9][11] : "MT"
 
 # Files Information
 
