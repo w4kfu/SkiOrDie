@@ -54,6 +54,98 @@ void readtobmp(unsigned char *buf, char *name)
 	}
 }
 
+void strupr(char *string)
+{
+	while(*string)
+   	{
+       		if (*string >= 'a' && *string <= 'z')
+       		{
+          		*string = *string - 32;
+       		}
+       		string++;
+   	}
+}
+
+char *strstri(char *s1, char *s2)
+{
+	char *s, *t, *u;
+
+    	if ((s1 == NULL) || (s2 == NULL))
+        	return NULL;
+    	s = strdup(s1);
+    	if (s == NULL)
+        	return NULL;
+    	t = strdup(s2);
+    	if (t == NULL)
+        {
+        	free(s);
+        	return NULL;
+        }
+    	strupr(s);
+    	strupr(t);
+    	if ((u = strstr (s, t)) != NULL)
+        	u = s1 + (u - s);
+    	free(s);
+    	free(t);
+    	return u;
+}
+
+void handleBMFile(unsigned char *buf, unsigned int size)
+{
+	unsigned short num_entry = 0;
+	unsigned int i, j, nb, lsize, val;
+	unsigned char **nentry = NULL;
+	unsigned char *sbuf = NULL;
+	char name[4096];
+
+
+	(void)size;
+	num_entry = *(unsigned short*)buf;
+	buf += 2;
+	printf("Num_entry = %X\n", num_entry);
+	if (!(nentry = malloc(sizeof (char*) * num_entry)))
+	{
+		perror("malloc()");
+		return;
+	}
+	for (i = 0; i < num_entry; i++)
+	{
+		sbuf = buf;
+		nb = *(buf + 1);
+		buf += 2;
+		lsize = 2;
+		for (j = 0; j < nb; j++)
+		{
+			val = *(buf + 1);
+			buf += 2;
+			lsize += 2;
+			if (val)
+			{
+				buf += val;
+				lsize += val;
+			}
+		}
+		if (!(nentry[i] = malloc(sizeof (char) * lsize)))
+		{
+			perror("malloc()");
+			break;
+		}
+		memcpy(nentry[i], sbuf, lsize);
+		printf("Dump %d\n", i);
+		hex_dump(nentry[i], lsize);
+		//memset(name, 0, 4096);
+		//sprintf(name, "LOL_%d", i);
+		//readtobmp(nentry[i] + 1, name);
+		//exit(0);
+	}
+	for (i = 0; i < num_entry; i++)
+	{
+		if (nentry[i])
+			free(nentry[i]);
+	}
+	free(nentry);
+}
+
 void extract(struct s_conf *conf)
 {
 	unsigned int uncomp_size = 0;
@@ -83,6 +175,10 @@ void extract(struct s_conf *conf)
 	{
 		printf("[+] Image !\n");
 		readtobmp(out_buf, "LOL");
+	}
+	else if (strstri(conf->filename, "BM.LZW"))
+	{
+		handleBMFile(out_buf, uncomp_size);
 	}
 	else
 	{
