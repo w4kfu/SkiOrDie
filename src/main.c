@@ -50,7 +50,28 @@ void readtobmp(unsigned char *buf, char *name)
   	strcat(output_name, ".bmp");
   	if (!bmp_save(&b, output_name))
 	{
-		fprintf(stderr, "[-] bmp_save(..., \"%s\")", output_name);
+		fprintf(stderr, "[-] bmp_save(..., \"%s\")\n", output_name);
+	}
+}
+
+void bmtobmp(unsigned char *buf, char *name)
+{
+  	BMP b;
+  	char output_name[500];
+
+	b.width = *(unsigned char*)buf++;
+	b.height = *(unsigned char*)buf++;
+	b.data = buf;
+	//mirrorud(b.data, b.width, b.height);
+	//hex_dump(b.data, b.width * b.height + 2);
+	/*rmdir("./extract");
+	mkdir("./extract", 0755);*/
+	strcpy(output_name, "./extract/");
+  	strcat(output_name, name);
+  	strcat(output_name, ".bmp");
+  	if (!bmp_savebm(&b, output_name))
+	{
+		fprintf(stderr, "[-] bmp_save(..., \"%s\")\n", output_name);
 	}
 }
 
@@ -132,9 +153,11 @@ void handleBMFile(unsigned char *buf, unsigned int size)
 		}
 		memcpy(nentry[i], sbuf, lsize);
 		printf("Dump %d\n", i);
-		hex_dump(nentry[i], lsize);
-		//memset(name, 0, 4096);
-		//sprintf(name, "LOL_%d", i);
+		//hex_dump(nentry[i], lsize);
+		//if (i == 17)
+		memset(name, 0, 4096);
+		sprintf(name, "LOL_%d", i);
+		bmtobmp(nentry[i], name);
 		//readtobmp(nentry[i] + 1, name);
 		//exit(0);
 	}

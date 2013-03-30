@@ -45,5 +45,6 @@ typedef struct
 }		BMP;
 
 int32_t bmp_save(BMP *bmp, char *filename);
+int bmp_savebm(BMP *bmp, char *filename);
 
 #endif /* !BMP_H_ */

@@ -75,6 +75,76 @@ void	make_bmpinfoheader(BMP *bmp, long bitsize, bmpIHEAD *infohead)
   	infohead->biClrImportant = 0;
 }
 
+int bmp_savebm(BMP *bmp, char *filename)
+{
+	bmpFHEAD filehead; /* File Header */
+	bmpIHEAD infohead; /* Info Header */
+
+	unsigned char swp;
+	long bitsize;
+	unsigned int x, y, a;
+	pixel p;
+	FILE *fp;
+    	unsigned char fbits;
+	unsigned char *bufpixel;
+
+	bmp->width *= 2;
+	fp = fopen(filename, "wb");
+	if (!bmp->data || !fp)
+	{
+		fclose (fp);
+		return (0);
+	}
+	bitsize  = bmp->width * bmp->height * 3;
+	bitsize += bitsize % 4;
+	make_bmpfileheader(bitsize, &filehead);
+
+	fwrite(&filehead.bfType,sizeof(filehead.bfType), 1, fp);
+	fwrite(&filehead.bfSize,sizeof(filehead.bfSize), 1, fp);
+	fwrite(&filehead.bfReserved1,sizeof(filehead.bfReserved1), 1, fp);
+	fwrite(&filehead.bfReserved2,sizeof(filehead.bfReserved2), 1, fp);
+	fwrite(&filehead.bfOffBits, sizeof(filehead.bfOffBits),1, fp);
+
+	make_bmpinfoheader(bmp, bitsize, &infohead);
+
+	fwrite(&infohead, sizeof (infohead), 1, fp);
+
+	bufpixel = bmp->data;
+	for (y = 0; y < bmp->height; y++)
+	{
+		unsigned int gap, width;
+		gap = *bufpixel++;
+		for (x = 0; x < gap; x++)
+		{
+			memcpy(&p, &palette[0], 3);
+		  	fwrite (&p, sizeof (p), 1, fp);
+		}
+		width = *bufpixel++;
+		for (x = 0; x < (width * 2); x++)
+		{
+			fbits = (x % 2 == 0) ? bufpixel[0] >> 4 : bufpixel[0] & 0x0F;
+			memcpy(&p, &palette[fbits], 3);
+		  	fwrite (&p, sizeof (p), 1, fp);
+            		bufpixel += x % 2;
+		}
+		if ((width * 2 + gap) > bmp->width)
+		{
+			fprintf(stderr, "[-] Error for file : %s\n", filename);
+			return 0;
+		}
+		for (x = 0; x < bmp->width - (width * 2 + gap); x++)
+		{
+			memcpy(&p, &palette[0], 3);
+		  	fwrite (&p, sizeof (p), 1, fp);
+		}
+		/* Add padding bytes */
+		/*swp = 0;
+		for (a = 0; a < (4 - ((bmp->width) % 4)) % 4; a++)
+			fwrite (&swp, sizeof(char), 1, fp);*/
+	}
+	fclose (fp);
+	return 1;
+}
 int bmp_save(BMP *bmp, char *filename)
 {
 	bmpFHEAD filehead; /* File Header */
