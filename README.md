@@ -50,7 +50,7 @@ All images must be fliped horizontaly.
 
 ## "*BM.LZW"
 
-Mutiple sprites of 4-Bit image
+Multiple sprites of 4-Bit image
 
 	+0x00 : Width
 	+0x01 : Height
@@ -100,6 +100,7 @@ Line 0 :
 
 * Gap = 0x00
 * Number of pixels : 0x0C * 2
+
 
 	00 0C CC CC CC CC CC CC CC CC CC CC CC CC
 
