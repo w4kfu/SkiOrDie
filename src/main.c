@@ -128,13 +128,13 @@ char *bminvert(unsigned char *buf, unsigned int size)
 		return NULL;
 	}
 	snewbuf = newbuf;
+	sbuf = buf;
 	*newbuf++ = *buf++;
 	*newbuf++ = *buf++;
 	height = *(snewbuf + 1);
-	sbuf = buf;
 	for (i = 0; i < height; i++)
 	{
-		buf = sbuf;
+		buf = sbuf + 2;
 		for (j = height - i - 1; j > 0; j--)
 		{
 			rsize = 2 + *(buf + 1);
@@ -145,6 +145,7 @@ char *bminvert(unsigned char *buf, unsigned int size)
 		newbuf += rsize;
 	}
 	hex_dump(snewbuf, size);
+	free(sbuf);
 	return snewbuf;
 }
 
