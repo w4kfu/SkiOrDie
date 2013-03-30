@@ -138,9 +138,9 @@ int bmp_savebm(BMP *bmp, char *filename)
 		  	fwrite (&p, sizeof (p), 1, fp);
 		}
 		/* Add padding bytes */
-		/*swp = 0;
+		swp = 0;
 		for (a = 0; a < (4 - ((bmp->width) % 4)) % 4; a++)
-			fwrite (&swp, sizeof(char), 1, fp);*/
+			fwrite (&swp, sizeof(char), 1, fp);
 	}
 	fclose (fp);
 	return 1;

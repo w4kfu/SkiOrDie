@@ -56,7 +56,7 @@ Multiple sprites of 4-Bit image
 	+0x01 : Height
 	+0x02 : Data
 
-Data Layout for each line (X * height) :
+Data Layout for each row (X * height) :
 
 	+0x00 : Gap Start X position
 	+0x01 : Number of pixels
@@ -96,7 +96,7 @@ Entry 17 (0x11) of the file "MNFBM.LZW"
 * Widht = 0x0E * 2
 * Height = 0x1A
 
-Line 0 :
+Row 0 :
 
 * Gap = 0x00
 * Number of pixels : 0x0C * 2
@@ -105,7 +105,7 @@ Gap, pixels, data pixels :
 
 	00 0C CC CC CC CC CC CC CC CC CC CC CC CC
 
-Line 1, 2, 3, 4 :
+Row 1, 2, 3, 4 :
 
 	00 0C CC 99 99 99 C9 9C CC 99 CC 99 99 CC
 	00 0C C9 91 11 11 C9 9C C9 91 CC 19 91 CC

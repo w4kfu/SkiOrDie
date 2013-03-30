@@ -54,7 +54,7 @@ void readtobmp(unsigned char *buf, char *name)
 	}
 }
 
-void bmtobmp(unsigned char *buf, char *name)
+int bmtobmp(unsigned char *buf, char *name)
 {
   	BMP b;
   	char output_name[500];
@@ -72,7 +72,9 @@ void bmtobmp(unsigned char *buf, char *name)
   	if (!bmp_savebm(&b, output_name))
 	{
 		fprintf(stderr, "[-] bmp_save(..., \"%s\")\n", output_name);
+		return 0;
 	}
+	return 1;
 }
 
 void strupr(char *string)
@@ -111,6 +113,41 @@ char *strstri(char *s1, char *s2)
     	return u;
 }
 
+char *bminvert(unsigned char *buf, unsigned int size)
+{
+	unsigned char *snewbuf = NULL;
+	unsigned char *sbuf = NULL;
+	unsigned char *newbuf = NULL;
+	unsigned int i, j;
+	unsigned int height;
+	unsigned int rsize;
+
+	if (!(newbuf = malloc(sizeof (char) * size)))
+	{
+		perror("malloc()");
+		return NULL;
+	}
+	snewbuf = newbuf;
+	*newbuf++ = *buf++;
+	*newbuf++ = *buf++;
+	height = *(snewbuf + 1);
+	sbuf = buf;
+	for (i = 0; i < height; i++)
+	{
+		buf = sbuf;
+		for (j = height - i - 1; j > 0; j--)
+		{
+			rsize = 2 + *(buf + 1);
+			buf += rsize;
+		}
+		rsize = 2 + *(buf + 1);
+		memcpy(newbuf, buf, rsize);
+		newbuf += rsize;
+	}
+	hex_dump(snewbuf, size);
+	return snewbuf;
+}
+
 void handleBMFile(unsigned char *buf, unsigned int size)
 {
 	unsigned short num_entry = 0;
@@ -131,13 +168,24 @@ void handleBMFile(unsigned char *buf, unsigned int size)
 	}
 	for (i = 0; i < num_entry; i++)
 	{
+		int width, special;
+
+		special = 0;
 		sbuf = buf;
+		width = *buf;
 		nb = *(buf + 1);
 		buf += 2;
 		lsize = 2;
 		for (j = 0; j < nb; j++)
 		{
 			val = *(buf + 1);
+			if ((*buf + val) > width)
+			{
+				//printf("SPECIAL !\n");
+				//hex_dump(buf, 10);
+				width = *buf + val;
+				//exit(0);
+			}
 			buf += 2;
 			lsize += 2;
 			if (val)
@@ -151,13 +199,17 @@ void handleBMFile(unsigned char *buf, unsigned int size)
 			perror("malloc()");
 			break;
 		}
+		//*sbuf = width;
 		memcpy(nentry[i], sbuf, lsize);
 		printf("Dump %d\n", i);
-		//hex_dump(nentry[i], lsize);
+		hex_dump(nentry[i], lsize);
+		nentry[i] = bminvert(nentry[i], lsize);
 		//if (i == 17)
 		memset(name, 0, 4096);
 		sprintf(name, "LOL_%d", i);
-		bmtobmp(nentry[i], name);
+		if (!bmtobmp(nentry[i], name))
+			hex_dump(nentry[i], lsize);
+		//exit(0);
 		//readtobmp(nentry[i] + 1, name);
 		//exit(0);
 	}
