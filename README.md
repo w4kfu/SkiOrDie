@@ -101,6 +101,7 @@ Line 0 :
 * Gap = 0x00
 * Number of pixels : 0x0C * 2
 
+Gap, pixels, data pixels :
 
 	00 0C CC CC CC CC CC CC CC CC CC CC CC CC
 
