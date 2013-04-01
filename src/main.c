@@ -113,7 +113,7 @@ char *strstri(char *s1, char *s2)
     	return u;
 }
 
-char *bminvert(unsigned char *buf, unsigned int size)
+unsigned char *bminvert(unsigned char *buf, unsigned int size)
 {
 	unsigned char *snewbuf = NULL;
 	unsigned char *sbuf = NULL;
@@ -169,7 +169,7 @@ void handleBMFile(unsigned char *buf, unsigned int size)
 	}
 	for (i = 0; i < num_entry; i++)
 	{
-		int width, special;
+		unsigned int width, special;
 
 		special = 0;
 		sbuf = buf;
@@ -200,19 +200,14 @@ void handleBMFile(unsigned char *buf, unsigned int size)
 			perror("malloc()");
 			break;
 		}
-		//*sbuf = width;
 		memcpy(nentry[i], sbuf, lsize);
 		printf("Dump %d\n", i);
 		hex_dump(nentry[i], lsize);
 		nentry[i] = bminvert(nentry[i], lsize);
-		//if (i == 17)
 		memset(name, 0, 4096);
 		sprintf(name, "LOL_%d", i);
 		if (!bmtobmp(nentry[i], name))
 			hex_dump(nentry[i], lsize);
-		//exit(0);
-		//readtobmp(nentry[i] + 1, name);
-		//exit(0);
 	}
 	for (i = 0; i < num_entry; i++)
 	{

@@ -114,33 +114,40 @@ int bmp_savebm(BMP *bmp, char *filename)
 	{
 		unsigned int gap, width;
 		gap = *bufpixel++;
+		width = *bufpixel++;
 		for (x = 0; x < gap; x++)
 		{
-			memcpy(&p, &palette[0], 3);
+			memcpy(&p, &palette[255], 3);
 		  	fwrite (&p, sizeof (p), 1, fp);
 		}
-		width = *bufpixel++;
+		/*if ((width * 2 + gap) > bmp->width)
+		{
+			width--;
+			printf("WIDHT = %X\n", width);
+		}*/
 		for (x = 0; x < (width * 2); x++)
 		{
 			fbits = (x % 2 == 0) ? bufpixel[0] >> 4 : bufpixel[0] & 0x0F;
+			if (fbits == 0)
+				fbits = 255;
 			memcpy(&p, &palette[fbits], 3);
 		  	fwrite (&p, sizeof (p), 1, fp);
             		bufpixel += x % 2;
 		}
 		if ((width * 2 + gap) > bmp->width)
 		{
+			/*printf("GAP = %X\n", gap);
+			printf("WIDTH * 2 = %X\n", width * 2);
+			printf("BMP WIDTH = %X\n", bmp->width);
 			fprintf(stderr, "[-] Error for file : %s\n", filename);
-			return 0;
+			return 0;*/
+			continue;
 		}
 		for (x = 0; x < bmp->width - (width * 2 + gap); x++)
 		{
-			memcpy(&p, &palette[0], 3);
+			memcpy(&p, &palette[255], 3);
 		  	fwrite (&p, sizeof (p), 1, fp);
 		}
-		/* Add padding bytes */
-		swp = 0;
-		for (a = 0; a < (4 - ((bmp->width) % 4)) % 4; a++)
-			fwrite (&swp, sizeof(char), 1, fp);
 	}
 	fclose (fp);
 	return 1;
