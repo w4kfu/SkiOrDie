@@ -80,9 +80,9 @@ int bmp_savebm(BMP *bmp, char *filename)
 	bmpFHEAD filehead; /* File Header */
 	bmpIHEAD infohead; /* Info Header */
 
-	unsigned char swp;
+	/*unsigned char swp;*/
 	long bitsize;
-	unsigned int x, y, a;
+	unsigned int x, y; /*, a;*/
 	pixel p;
 	FILE *fp;
     	unsigned char fbits;

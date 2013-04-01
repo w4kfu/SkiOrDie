@@ -149,6 +149,42 @@ unsigned char *bminvert(unsigned char *buf, unsigned int size)
 	return snewbuf;
 }
 
+void handleTILFile(unsigned char *buf, unsigned int size)
+{
+	unsigned short num_entry = 0;
+  	BMP b;
+  	char output_name[4096];
+  	char name[4096];
+	unsigned int i;
+
+	(void)size;
+	num_entry = *(unsigned short*)buf;
+	buf += 2;
+	/*unk = *(unsigned short*)buf;*/
+	buf += 2;
+	printf("Num_entry = %X\n", num_entry);
+	printf("unk = %X\n", num_entry);
+	for (i = 0; i < num_entry; i++)
+	{
+		b.width = 4;
+		b.height = 8;
+		b.data = buf;
+
+		mirrorud(b.data, b.width, b.height);
+		memset(name, 0, 4096);
+		memset(output_name, 0, 4096);
+		sprintf(name, "LOL_%d", i);
+		strcpy(output_name, "./extract/");
+  		strcat(output_name, name);
+  		strcat(output_name, ".bmp");
+  		if (!bmp_save(&b, output_name))
+		{
+			fprintf(stderr, "[-] bmp_save(..., \"%s\")\n", output_name);
+		}
+		buf = buf + (4 * 8);
+	}
+}
+
 void handleBMFile(unsigned char *buf, unsigned int size)
 {
 	unsigned short num_entry = 0;
@@ -169,9 +205,9 @@ void handleBMFile(unsigned char *buf, unsigned int size)
 	}
 	for (i = 0; i < num_entry; i++)
 	{
-		unsigned int width, special;
+		unsigned int width; /*, special;*/
 
-		special = 0;
+		/*special = 0;*/
 		sbuf = buf;
 		width = *buf;
 		nb = *(buf + 1);
@@ -250,6 +286,10 @@ void extract(struct s_conf *conf)
 	else if (strstri(conf->filename, "BM.LZW"))
 	{
 		handleBMFile(out_buf, uncomp_size);
+	}
+	else if (strstri(conf->filename, "TIL.LZW") || strstri(conf->filename, "TILE.LZW"))
+	{
+		handleTILFile(out_buf, uncomp_size);
 	}
 	else
 	{

@@ -114,6 +114,14 @@ Row 1, 2, 3, 4 :
 
 etc ...
 
+## "*TIL.LZW" | "*TILE.LZW"
+
+* +0x00 : Number of entry
+* +0x02 : unk1
+* +0x04 : Data
+
+4-Bit images with fixed height to 8 and width to 4.
+
 ## SPLASH.LZW
 
 4-Bit image for SplashScreen.
