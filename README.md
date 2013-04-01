@@ -50,6 +50,8 @@ All images must be fliped horizontaly.
 
 ## "*BM.LZW"
 
+SBFBM.LZW ; DHFBM.LZW ; SFFBM.LZW ; TBFBM.LZW ; AJFBM.LZW ; MNFBM.LZW
+
 Multiple sprites of 4-Bit image
 
 	+0x00 : Width
@@ -116,11 +118,25 @@ etc ...
 
 ## "*TIL.LZW" | "*TILE.LZW"
 
+AJTIL.LZW ; DHTIL.LZW ; TBTIL.LZW ; DHTILE.LZW
+
 * +0x00 : Number of entry
 * +0x02 : unk1
 * +0x04 : Data
 
 4-Bit images with fixed height to 8 and width to 4.
+
+## "*MAP.LZW"
+
+AJMAP.LZW ; DHMAP.LZW ; TBMAP.LZW
+
+List of reference to TIL images
+
+### Example "AJMAP.LZW"
+
+	[    0060]   01 00 06 00 01 00 01 00   07 00 01 00 08 00 01 00   ........ ........
+
+TIL 0x0001 ; 0x0006 ; 0x0001 ; 0x0001 ; 0x0007 ; 0x0001 ; 0x0008 ; 0x0001 ... etc
 
 ## SPLASH.LZW
 
