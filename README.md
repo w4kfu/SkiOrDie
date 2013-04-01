@@ -176,13 +176,13 @@ etc ...
 
 
 [1]:http://www.abandonware-france.org/ltf_abandon/ltf_jeu.php?id=624&fic=liens
-[2]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_0.bmp "code1"
-[3]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_1.bmp "code2"
-[4]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_2.bmp "code3"
-[5]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_3.bmp "code4"
-[6]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_4.bmp "code5"
-[7]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_5.bmp "code6"
-[8]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_6.bmp "code7"
-[9]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_7.bmp "code8"
-[10]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_8.bmp "code9"
-[11]:http://w4kfu.com/misc/skiordie/status/CPSHP.LZW/CPSHP.LZW_9.bmp "code10"
+[2]:img/CPSHP.LZW_0.png "code1"
+[3]:img/CPSHP.LZW_1.png "code2"
+[4]:img/CPSHP.LZW_2.png "code3"
+[5]:img/CPSHP.LZW_3.png "code4"
+[6]:img/CPSHP.LZW_4.png "code5"
+[7]:img/CPSHP.LZW_5.png "code6"
+[8]:img/CPSHP.LZW_6.png "code7"
+[9]:img/CPSHP.LZW_7.png "code8"
+[10]:img/CPSHP.LZW_8.png "code9"
+[11]:img/CPSHP.LZW_9.png "code10"
